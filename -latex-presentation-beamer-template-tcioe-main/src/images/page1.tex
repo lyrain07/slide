@@ -1,0 +1,194 @@
+\documentclass[11pt, tikz, border=10pt]{standalone}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usepackage{amsmath}
+\usetikzlibrary{calc, arrows.meta, shadows}
+
+\definecolor{bglight}{HTML}{F8FAFC}
+\definecolor{borderc}{HTML}{E2E8F0}
+\definecolor{textmain}{HTML}{0F172A}
+\definecolor{textsub}{HTML}{475569}
+\definecolor{valleygreen}{RGB}{35,95,25}
+\definecolor{midgreen}{RGB}{95,155,100}
+\definecolor{dirtbrown}{RGB}{185,150,110}
+\definecolor{rockbrown}{RGB}{215,200,185}
+\definecolor{snowwhite}{RGB}{250,250,250}
+\definecolor{queryred}{HTML}{EF4444}
+\definecolor{chartblue}{HTML}{0284C7}
+
+\begin{document} 
+
+% scale=0.55 and transform shape ensures the entire diagram fits a standard slide width
+\begin{tikzpicture}[
+    scale=0.55, transform shape,
+    line join=round, 
+    line cap=round,
+    declare function={
+        horizonrad1(\t) = 2.13137 - 0.13137*cos(4*(\t - 70));
+        horizonrad2(\t) = 1.80000 - 0.10000*cos(4*(\t - 70));
+        horizonrad3(\t) = 1.50000 - 0.08000*cos(4*(\t - 70));
+        terrain_base(\u,\v) = 
+            0.7*(\u^2 + \v^2)*exp(-0.18*(\u^2 + \v^2))
+            + 2.0*exp(-0.8*(\u+1.6)^2 - 0.8*(\v-1.6)^2)
+            + 2.2*exp(-0.6*(\u-1.6)^2 - 0.6*(\v+1.6)^2)
+            + 1.5*exp(-0.8*(\u+1.6)^2 - 0.8*(\v+1.6)^2)
+            + 1.8*exp(-0.8*(\u-1.6)^2 - 0.8*(\v-1.6)^2)
+            + 0.15*cos(deg(\u*3))*cos(deg(\v*3));
+        terrain(\x,\y) = terrain_base(0.9397*\x - 0.3420*\y, 0.3420*\x + 0.9397*\y);
+        plot_y(\t) = -3.0 + 0.71875 * (terrain(horizonrad3(\t)*cos(\t), horizonrad3(\t)*sin(\t)) - 1.0);
+    }
+]
+
+    % ========================================================
+    % 1. TOP ROW: GLOBAL HORIZON (Reduced yshift to 11cm)
+    % ========================================================
+    \begin{scope}[yshift=11cm]
+        \node[font=\large\sffamily\bfseries, text=textmain, anchor=south] at (5.45, 8.2) {Digital Elevation Model};
+        \node[font=\large\sffamily\bfseries, text=textmain, anchor=south] at (15.2, 8.2) {Expected Skylines};
+        \node[font=\large\sffamily\bfseries, text=textmain, anchor=south] at (25.5, 8.2) {Vector Index};
+        
+        \node[font=\large\sffamily\bfseries, text=textmain, align=center, anchor=south, rotate=90] at (-1.2, 4.5) {Global Horizon\\(Clear Visibility)};
+
+        \begin{axis}[
+            width=10.5cm, height=9cm,
+            at={(0.2cm, 1.0cm)}, anchor=south west,
+            view={-45}{45}, hide axis,
+            colormap={terrain}{
+                color(0cm)=(valleygreen); color(2cm)=(midgreen);
+                color(4cm)=(dirtbrown); color(6cm)=(rockbrown);
+                color(8cm)=(snowwhite);
+            },
+            domain=-3.5:3.5, y domain=-3.5:3.5, samples=28, z buffer=sort,
+            point meta min=0.3, point meta max=3.6,
+        ]
+            \addplot3[surf, faceted color=black!20, line width=0.3pt] { terrain(x, y) };
+            \addplot3[only marks, mark=*, mark options={fill=queryred, draw=queryred, line width=0pt}, mark size=1.1pt, domain=0:360, samples=200, samples y=1] 
+                ({horizonrad1(x)*cos(x)}, {horizonrad1(x)*sin(x)}, {terrain(horizonrad1(x)*cos(x), horizonrad1(x)*sin(x)) + 0.03});
+            \coordinate (ObserverPos1) at (axis cs:0,0,1.3);
+        \end{axis}
+
+        \node[anchor=south, inner sep=0, yshift=-0.4mm] at (ObserverPos1) {
+            \begin{tikzpicture}[scale=0.14]
+                \fill[black!15] (0.08,-0.08) circle (0.3);
+                \fill[chartblue, draw=white, line width=1.1pt] (0,0) .. controls (-1.2,1.8) and (-1.8,3.6) .. (0,5.4) .. controls (1.8,3.6) and (1.2,1.8) .. (0,0) -- cycle;
+                \fill[white] (0,3.6) circle (0.6);
+            \end{tikzpicture}
+        };
+
+        \begin{scope}[shift={(11.2,2.2)}]
+            \begin{axis}[
+                width=8cm, height=6.5cm, anchor=south west, axis lines=left, axis line style={textmain, line width=1.5pt},
+                xmin=0, xmax=360, ymin=1.0, ymax=4.2, xtick={0, 90, 180, 270, 360},
+                xticklabels={0$^\circ$, 90$^\circ$, 180$^\circ$, 270$^\circ$, 360$^\circ$}, xticklabel style={font=\scriptsize\sffamily, text=textsub}, ytick=\empty,
+                xlabel={Azimuth Angle ($\theta$)}, ylabel={Elev.},
+                xlabel style={font=\small\sffamily, text=textmain, yshift=-1mm}, ylabel style={font=\small\sffamily, text=textmain, yshift=2mm},
+            ]
+                \addplot[queryred, line width=2.5pt, domain=0:360, samples=150, smooth] {terrain(horizonrad1(x)*cos(x), horizonrad1(x)*sin(x))};
+            \end{axis}
+        \end{scope}
+        \node (vec1) at (20.5, 5.0) [xscale=1.5, yscale=3.5, font=\large] {$\begin{bmatrix} \textcolor{queryred}{\vdots} \end{bmatrix}$};
+    \end{scope}
+
+    % ========================================================
+    % 2. MIDDLE ROW: LOCAL HORIZON (Reduced yshift to 5.5cm)
+    % ========================================================
+    \begin{scope}[yshift=5.5cm]
+        \node[font=\large\sffamily\bfseries, text=textmain, align=center, anchor=south, rotate=90] at (-1.2, 4.5) {Local Horizon\\(Moderate Haze)};
+        \begin{axis}[
+            width=10.5cm, height=9cm, at={(0.2cm, 1.0cm)}, anchor=south west,
+            view={-45}{45}, hide axis, colormap name=terrain,
+            domain=-3.5:3.5, y domain=-3.5:3.5, samples=28, z buffer=sort,
+        ]
+            \addplot3[surf, faceted color=black!20, line width=0.3pt] { terrain(x, y) };
+            \addplot3[only marks, mark=*, mark options={fill=queryred, draw=queryred, line width=0pt}, mark size=1.1pt, domain=0:360, samples=200, samples y=1] 
+                ({horizonrad2(x)*cos(x)}, {horizonrad2(x)*sin(x)}, {terrain(horizonrad2(x)*cos(x), horizonrad2(x)*sin(x)) + 0.03});
+            \coordinate (ObserverPos2) at (axis cs:0,0,1.3);
+        \end{axis}
+        \node[anchor=south, inner sep=0, yshift=-0.4mm] at (ObserverPos2) {
+            \begin{tikzpicture}[scale=0.14]
+                \fill[black!15] (0.08,-0.08) circle (0.3);
+                \fill[chartblue, draw=white, line width=1.1pt] (0,0) .. controls (-1.2,1.8) and (-1.8,3.6) .. (0,5.4) .. controls (1.8,3.6) and (1.2,1.8) .. (0,0) -- cycle;
+                \fill[white] (0,3.6) circle (0.6);
+            \end{tikzpicture}
+        };
+        \begin{scope}[shift={(11.2,2.2)}]
+            \begin{axis}[
+                width=8cm, height=6.5cm, anchor=south west, axis lines=left, axis line style={textmain, line width=1.5pt},
+                xmin=0, xmax=360, ymin=1.0, ymax=4.2, xtick={0, 90, 180, 270, 360}, xticklabel style={font=\scriptsize\sffamily, text=textsub}, ytick=\empty,
+                xlabel={Azimuth Angle ($\theta$)}, ylabel={Elev.},
+            ]
+                \addplot[queryred, line width=2.5pt, domain=0:360, samples=150, smooth] {terrain(horizonrad2(x)*cos(x), horizonrad2(x)*sin(x))};
+            \end{axis}
+        \end{scope}
+        \node (vec2) at (20.5, 5.0) [xscale=1.5, yscale=3.5, font=\large] {$\begin{bmatrix} \textcolor{queryred}{\vdots} \end{bmatrix}$};
+    \end{scope}
+
+    % ========================================================
+    % 3. BOTTOM ROW: RESTRICTED HORIZON (yshift=0cm)
+    % ========================================================
+    \begin{scope}[yshift=0cm]
+        \node[font=\large\sffamily\bfseries, text=textmain, align=center, anchor=south, rotate=90] at (-1.2, 4.5) {Restricted Horizon\\(Dense Fog)};
+        \begin{axis}[
+            width=10.5cm, height=9cm, at={(0.2cm, 1.0cm)}, anchor=south west,
+            view={-45}{45}, hide axis, colormap name=terrain,
+            domain=-3.5:3.5, y domain=-3.5:3.5, samples=28, z buffer=sort,
+        ]
+            \addplot3[surf, faceted color=black!20, line width=0.3pt] { terrain(x, y) };
+            \addplot3[only marks, mark=*, mark options={fill=queryred, draw=queryred, line width=0pt}, mark size=1.1pt, domain=0:360, samples=200, samples y=1] 
+                ({horizonrad3(x)*cos(x)}, {horizonrad3(x)*sin(x)}, {terrain(horizonrad3(x)*cos(x), horizonrad3(x)*sin(x)) + 0.03});
+            \coordinate (ObserverPos3) at (axis cs:0,0,1.3);
+        \end{axis}
+        \node[anchor=south, inner sep=0, yshift=-0.4mm] at (ObserverPos3) {
+            \begin{tikzpicture}[scale=0.14]
+                \fill[black!15] (0.08,-0.08) circle (0.3);
+                \fill[chartblue, draw=white, line width=1.1pt] (0,0) .. controls (-1.2,1.8) and (-1.8,3.6) .. (0,5.4) .. controls (1.8,3.6) and (1.2,1.8) .. (0,0) -- cycle;
+                \fill[white] (0,3.6) circle (0.6);
+            \end{tikzpicture}
+        };
+        \begin{scope}[shift={(11.2,2.2)}]
+            \begin{axis}[
+                width=8cm, height=6.5cm, anchor=south west, axis lines=left, axis line style={textmain, line width=1.5pt},
+                xmin=0, xmax=360, ymin=1.0, ymax=4.2, xtick={0, 90, 180, 270, 360}, xticklabel style={font=\scriptsize\sffamily, text=textsub}, ytick=\empty,
+                xlabel={Azimuth Angle ($\theta$)}, ylabel={Elev.},
+            ]
+                \addplot[queryred, line width=2.5pt, domain=0:360, samples=150, smooth] {terrain(horizonrad3(x)*cos(x), horizonrad3(x)*sin(x))};
+            \end{axis}
+        \end{scope}
+        \node (vec3) at (20.5, 5.0) [xscale=1.5, yscale=3.5, font=\large] {$\begin{bmatrix} \textcolor{queryred}{\vdots} \end{bmatrix}$};
+
+        % Tightened Simulated Imagery Block
+        \draw[textsub, line width=1.5pt, -{Stealth[length=2mm]}] (15.2, 0.2) -- (15.2, -0.4);
+        \draw[textsub, thick, rounded corners=3pt, fill=white] (11.2, -2.4) rectangle (19.2, -0.5);
+        \begin{axis}[width=8cm, height=1.9cm, at={(11.2cm, -2.4cm)}, anchor=south west, xmin=0, xmax=360, hide axis]
+            \begin{scope}
+                \clip[rounded corners=3pt] (0, 1.0) rectangle (360, 4.2);
+                \shade[top color=chartblue!90!black, bottom color=chartblue!15!white] (0, 1.0) rectangle (360, 4.2);
+                \shade[top color=snowwhite, bottom color=textmain!85!black] (0, 1.0) -- plot[domain=0:360, samples=80, smooth] (\x, {terrain(horizonrad3(\x)*cos(\x), horizonrad3(\x)*sin(\x))}) -- (360, 1.0) -- cycle;
+            \end{scope}
+        \end{axis}
+        \node[font=\footnotesize\sffamily\bfseries, text=textmain, anchor=north] at (15.2, -2.4) {Simulated Imagery};
+    \end{scope}
+
+    % ========================================================
+    % 4. SHARED CENTRAL GRID (Positioned for the new 5.5cm spacing)
+    % ========================================================
+    \begin{scope}[shift={(23.2, 6.2)}]
+        \draw[borderc, thick, fill=white] (0,0) rectangle (4.0,4.0);
+        \draw[borderc, thin, step=0.8cm] (0,0) grid (4.0,4.0);
+        \fill[queryred!20] (1.6,1.6) rectangle (2.4,2.4);
+        \coordinate (cell) at (2.0, 2.0);
+        
+        % Dynamic arrow paths adjusted for tighter layout
+        \draw[textmain, thick, -{Stealth[length=2mm]}] (vec1.east) to[out=0, in=135] (2.0, 2.4);
+        \draw[textmain, thick, -{Stealth[length=2mm]}] (vec2.east) to[out=0, in=180] (1.6, 2.0);
+        \draw[textmain, thick, -{Stealth[length=2mm]}] (vec3.east) to[out=0, in=-135] (2.0, 1.6);
+        
+        \node[anchor=south, inner sep=0, yshift=0.5mm] at (cell) {
+            \begin{tikzpicture}[scale=0.12]
+                \fill[chartblue, draw=white] (0,0) .. controls (-1.2,1.8) and (-1.8,3.6) .. (0,5.4) .. controls (1.8,3.6) and (1.2,1.8) .. (0,0) -- cycle;
+            \end{tikzpicture}
+        };
+    \end{scope}
+
+\end{tikzpicture}
+\end{document}
