@@ -4,31 +4,31 @@
 \subsection{Problem Statement}
 
 \begin{frame}{Problem Statement}
-    \begin{alertblock}{Key Problem}
-        Clearly define the main problem your project aims to solve.
+    \begin{alertblock}{Core Challenge}
+        Accurately estimating a camera's geographic coordinates and viewing direction from a single mountain photograph when GNSS/GPS signals are unavailable.
     \end{alertblock}
 
     \vspace{1em}
 
-    \textbf{Current Challenges:}
+    \textbf{Current Technical Barriers:}
     \begin{enumerate}
-        \item Challenge 1: Specific issue affecting users/system
-        \item Challenge 2: Limitation in existing solutions
-        \item Challenge 3: Gap in current approaches
+        \item \textbf{Visual Obstruction:} Haze, clouds, and low contrast frequently obscure the skyline boundary.
+        \item \textbf{Search Scale:} Matching a partial skyline against a massive database without knowing the camera's initial heading is computationally expensive.
+        \item \textbf{Data Scarcity:} A critical lack of annotated mountain datasets for the Himalayan region compared to European or Chinese terrain.
     \end{enumerate}
 \end{frame}
 
 \begin{frame}{Problem Analysis}
-    \textbf{Impact of the Problem:}
+    \textbf{Impact of GPS Failure in Mountains:}
     \begin{itemize}
-        \item Effect on users/stakeholders
-        \item Economic or operational impact
-        \item Consequences if not addressed
+        \item \textbf{Topographic Shielding:} Deep Himalayan valleys block line-of-sight to satellites.
+        \item \textbf{Safety Risk:} Navigation failure in the Khumbu region can be fatal for trekkers and rescue teams.
+        \item \textbf{Infrastructure Limits:} Remote areas lack cell towers or internet connectivity for cloud-based maps.
     \end{itemize}
 
     \vspace{1em}
 
-    \begin{exampleblock}{Why It Matters}
-        Explain the significance and urgency of solving this problem.
+    \begin{exampleblock}{Significance of the Solution}
+        Mountain skylines are unique, permanent, and visible even when satellites are not. This project provides a robust, offline navigation alternative using the observer's own camera as a sensor.
     \end{exampleblock}
 \end{frame}

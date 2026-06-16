@@ -1,47 +1,40 @@
 \documentclass[14pt]{thapathali}
 
 % ============================================
-% CUSTOMIZABLE VARIABLES - Edit these
+% CUSTOMIZABLE VARIABLES
 % ============================================
-\projecttitle{HYPERHEURISTIC OPTIMIZATION OF UNIVERSITY COURSE TIMETABLING PROBLEM USING REINFORCEMENT LEARNING AND GENETIC ALGORITHM}
-\projectsubtitle{Final Defense Presentation}
-\newcommand{\studentone}{Student Name 1}
-\newcommand{\rollone}{THA080BCT002}
-\newcommand{\studenttwo}{Student Name 2}
-\newcommand{\rolltwo}{THA080BCT002}
-\newcommand{\studentthree}{Student Name 3}
-\newcommand{\rollthree}{THA080BCT002}
-\newcommand{\studentfour}{Student Name 4}
-\newcommand{\rollfour}{THA080BCT002}
+\newcommand{\MyProjectTitle}{Geo-locating Users in Mountains by Detecting Skylines from Captured Photos}
+\newcommand{\MySubtitle}{Final Defense Presentation}
 
-% Used in the Q&A slide (macro-driven)
-\presentername{\studentone}
-\studentroll{\rollone}
-\supervisorname{Dr. Supervisor Name}
-\supervisortitle{Associate Professor}
-\departmentname{Department of Electronics and Computer Engineering}
-\institutionname{Institute of Engineering, Thapathali Campus}
-\presentationdate{\today}
-\academicyear{Academic Year: 2024/2025}
+\newcommand{\studentone}{Bibha Ray}
+\newcommand{\rollone}{THA080BCT009}
+\newcommand{\studenttwo}{Prasiddha Raj Poudel}
+\newcommand{\rolltwo}{THA080BCT027}
+\newcommand{\studentthree}{Reema Kasula}
+\newcommand{\rollthree}{THA080BCT032}
 
-% Logo (add your logo file to the src/images directory)
-% \logo{\includegraphics[height=0.8cm]{src/images/ioe-logo.png}}
+\newcommand{\mysupervisor}{Er. Shanta Maharjan}
+\newcommand{\supervisortitle}{Lecturer} % Or appropriate title
+\newcommand{\deptname}{Department of Electronics and Computer Engineering}
+\newcommand{\instname}{Institute of Engineering, Thapathali Campus}
+\newcommand{\presdate}{June 2026}
 
-% ============================================
-% TITLE PAGE SETUP
-% ============================================
-\csname title\endcsname[\ProjectTitle]{\ProjectTitle}
-\subtitle{\ProjectSubtitle}
-\author[\studentone]{\studentone, \studenttwo, \studentthree, \studentfour}
-\institute[\DepartmentName]{\DepartmentName}
-\date[\PresentationDate]{\PresentationDate}
+% Internal Beamer mappings
+\title{\MyProjectTitle}
+\subtitle{\MySubtitle}
+\author{\studentone, \studenttwo, \studentthree}
+\date{\presdate}
 
 % ============================================
 % DOCUMENT BEGINS
 % ============================================
+\usepackage{standalone}
 \begin{document}
 
+% This calls your title.tex file
 \input{src/slides/01-title.tex}
+
+% Other slides
 \input{src/slides/02-motivation.tex}
 \input{src/slides/03-background.tex}
 \input{src/slides/05-objectives.tex}
