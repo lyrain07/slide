@@ -1,112 +1,44 @@
 % ============================================
-% RESULT
+% EXPECTED RESULTS
 % ============================================
 
-\begin{frame}{Result[1] (Precision-Recall Curve)}
+\begin{frame}{Expected Results - [1] (Output Interface)}
     \begin{center}
-        % Replace with your precision-recall curve figure
-        \vspace{1em}
-        \fbox{\parbox{0.8\textwidth}{\centering
-                \vspace{1.5cm}
-                \textbf{[Precision-Recall Curve]}\\
-                \vspace{0.5em}
-                Insert your precision-recall curve figure here
-                \vspace{1.5cm}
-            }}
+        % Standard size for the main result image
+        \includegraphics[width=0.85\textwidth, height=0.7\textheight, keepaspectratio]{src/images/page4.png} 
+        \vfill
+        \small \textbf{Figure:} Proposed interface showing predicted location on map and profile alignment.
     \end{center}
 \end{frame}
 
-\begin{frame}{Result[2] (ROC Curve)}
-    \begin{center}
-        % Replace with your ROC curve figure
-        \vspace{1em}
-        \fbox{\parbox{0.8\textwidth}{\centering
-                \vspace{1.5cm}
-                \textbf{[ROC Curve]}\\
-                \vspace{0.5em}
-                Insert your ROC curve figure here
-                \vspace{1.5cm}
-            }}
-    \end{center}
-\end{frame}
-
-\begin{frame}{Result[3] (Confusion Matrix)}
+\begin{frame}{Expected Results - [2] (Performance Metrics)}
     \begin{columns}[t, onlytextwidth]
-        \begin{column}{0.48\textwidth}
+        \begin{column}{0.55\textwidth}
+            \textbf{Metrics for Evaluation:}
             \begin{itemize}
-                \item Classification performance summary
-                \item True positives and false negatives
-                \item True negatives and false positives
-                \item Accuracy, Precision, Recall metrics
+                \item \textbf{Top-$k$ Accuracy:} How often the ground-truth location appears in the top $1, 5, \text{ or } 10$ candidates.
+                \item \textbf{Heading Error:} Angular difference between predicted and actual camera direction (limit: $\pm 0.25^\circ$).
+                \item \textbf{Latency:} Time taken for FFT search and DTW refinement (Target: $< 2$ seconds).
             \end{itemize}
         \end{column}
-        \begin{column}{0.48\textwidth}
+        \begin{column}{0.42\textwidth}
             \begin{center}
-                % Replace with your confusion matrix figure
-                \fbox{\parbox{0.95\textwidth}{\centering
-                        \vspace{2cm}
-                        \textbf{[Confusion Matrix]}
-                        \vspace{2cm}
-                    }}
+                % If you have a PNG for this graph later, replace this \fbox with \includegraphics
+                \fbox{\parbox{0.9\textwidth}{\centering
+                    \vspace{1.5cm}
+                    \small \textbf{[Expected Accuracy Graph]}\\
+                    \tiny (Top-$k$ vs Success Rate)
+                    \vspace{1.5cm}
+                }}
             \end{center}
         \end{column}
     \end{columns}
 \end{frame}
 
-\begin{frame}{Result[4]}
-    \begin{columns}[t, onlytextwidth]
-        \begin{column}{0.48\textwidth}
-            \begin{center}
-                % Replace with your dashboard/app screenshot
-                \fbox{\parbox{0.95\textwidth}{\centering
-                        \vspace{1.5cm}
-                        \textbf{[Dashboard Screenshot]}
-                        \vspace{1.5cm}
-                    }}
-            \end{center}
-            \begin{itemize}
-                \item Dashboard for data visualization
-            \end{itemize}
-        \end{column}
-        \begin{column}{0.48\textwidth}
-            \begin{center}
-                % Replace with your web app screenshot
-                \fbox{\parbox{0.95\textwidth}{\centering
-                        \vspace{1.5cm}
-                        \textbf{[Web App Screenshot]}
-                        \vspace{1.5cm}
-                    }}
-            \end{center}
-            \begin{itemize}
-                \item Homepage for web app
-            \end{itemize}
-        \end{column}
-    \end{columns}
-\end{frame}
-
-\begin{frame}{Result[5]}
-    \begin{columns}[t, onlytextwidth]
-        \begin{column}{0.48\textwidth}
-            \begin{center}
-                % Replace with your prototype photo
-                \fbox{\parbox{0.95\textwidth}{\centering
-                        \vspace{1.5cm}
-                        \textbf{[Prototype Photo]}
-                        \vspace{1.5cm}
-                    }}
-            \end{center}
-            Final prototype of the system
-        \end{column}
-        \begin{column}{0.48\textwidth}
-            \begin{center}
-                % Replace with your data table screenshot
-                \fbox{\parbox{0.95\textwidth}{\centering
-                        \vspace{1.5cm}
-                        \textbf{[Data Table]}
-                        \vspace{1.5cm}
-                    }}
-            \end{center}
-            Data received from the hardware
-        \end{column}
-    \end{columns}
+\begin{frame}{Expected Results - [3] (Robustness Analysis)}
+    \begin{itemize}
+        \item \textbf{Weather Resistance:} Performance evaluation across different visibility tiers (Clear, Moderate Haze, Dense Fog).
+        \item \textbf{Focal Length Tolerance:} DTW's ability to handle stretching/compression from different smartphone lenses.
+        \item \textbf{Memory Footprint:} Maintaining the $\sim 79$ MB database entirely in RAM for fast access.
+    \end{itemize}
 \end{frame}

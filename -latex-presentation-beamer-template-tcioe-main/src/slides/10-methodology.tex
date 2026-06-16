@@ -5,10 +5,10 @@
 \begin{frame}{Methodology - [1] (System Block Diagram)}
     \begin{center}
         \vspace{1em}
-        \resizebox{0.8\textwidth}{!}{%
-            \input{src/images/page1.tex} % System Overview/Database Generation image
-        }
-        \par \small \textbf{System Block Diagram:} Overview of the database generation and matching pipeline.
+        % Changed from .tex to .png
+        \includegraphics[width=0.85\textwidth]{src/images/page1.png} 
+        \par \vspace{0.5em}
+        \small \textbf{System Block Diagram:} Overview of the database generation and matching pipeline.
     \end{center}
 \end{frame}
 
@@ -33,11 +33,12 @@
 
 \begin{frame}{Methodology - [4] (Flow Of Proposed System)}
     \begin{center}
-        \vspace{1em}
-        \resizebox{0.85\textwidth}{!}{%
-            \input{src/images/page2.tex} % Skyline Extraction Flowchart
-        }
-        \par \small \textbf{Flowchart:} Pipeline from raw photo input to extracted skyline mask.
+        \vspace{0.5em}
+        % Changed from .tex to .png
+        % Used height constraint here because flowcharts are often tall
+        \includegraphics[height=0.7\textheight]{src/images/page2.png} 
+        \par \vspace{0.5em}
+        \small \textbf{Flowchart:} Pipeline from raw photo input to extracted skyline mask.
     \end{center}
 \end{frame}
 
@@ -71,10 +72,10 @@
 \begin{frame}{Methodology - [8] (Algorithm Architecture)}
     \begin{center}
         \vspace{1em}
-        \resizebox{0.8\textwidth}{!}{%
-            \input{src/images/page3.tex} % Matching Engine Diagram
-        }
-        \par \small \textbf{Algorithm Architecture:} Two-stage engine showing FFT-Sliding Window and DTW refinement.
+        % Changed from .tex to .png
+        \includegraphics[width=0.9\textwidth]{src/images/page3.png} 
+        \par \vspace{0.5em}
+        \small \textbf{Algorithm Architecture:} Two-stage engine showing FFT-Sliding Window and DTW refinement.
     \end{center}
 \end{frame}
 
@@ -90,6 +91,7 @@
 \begin{frame}{Methodology - [10] (Snapshot of Dataset)}
     \begin{center}
         \vspace{1em}
+        % You can also use an image here if you have one (e.g. dataset_sample.png)
         \fbox{\parbox{0.8\textwidth}{\centering
                 \vspace{1cm}
                 \textbf{GeoPose3K \& Khumbu Synthetic Images}\\

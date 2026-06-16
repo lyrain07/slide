@@ -12,29 +12,28 @@
 \newcommand{\rolltwo}{THA080BCT027}
 \newcommand{\studentthree}{Reema Kasula}
 \newcommand{\rollthree}{THA080BCT032}
+% चौथो स्टुडेन्ट छैन भने खाली छोड्नुहोस् वा हटाउनुहोस्
+\newcommand{\studentfour}{} 
+\newcommand{\rollfour}{}
 
-\newcommand{\mysupervisor}{Er. Shanta Maharjan}
-\newcommand{\supervisortitle}{Lecturer} % Or appropriate title
-\newcommand{\deptname}{Department of Electronics and Computer Engineering}
-\newcommand{\instname}{Institute of Engineering, Thapathali Campus}
-\newcommand{\presdate}{June 2026}
+\newcommand{\MySupervisor}{Er. Shanta Maharjan}
+% supervisortitle पहिल्यै डिफाइन छ भने renew गर्नुहोस्
+\renewcommand{\supervisortitle}{Lecturer} 
 
-% Internal Beamer mappings
+\newcommand{\MyDeptName}{Department of Electronics and Computer Engineering}
+\newcommand{\MyInstName}{Institute of Engineering, Thapathali Campus}
+\newcommand{\MyPresDate}{June 2026}
+
+% Beamer internal mappings
 \title{\MyProjectTitle}
 \subtitle{\MySubtitle}
 \author{\studentone, \studenttwo, \studentthree}
-\date{\presdate}
+\date{\MyPresDate}
 
-% ============================================
-% DOCUMENT BEGINS
-% ============================================
 \usepackage{standalone}
 \begin{document}
 
-% This calls your title.tex file
 \input{src/slides/01-title.tex}
-
-% Other slides
 \input{src/slides/02-motivation.tex}
 \input{src/slides/03-background.tex}
 \input{src/slides/05-objectives.tex}

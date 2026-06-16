@@ -5,17 +5,29 @@
 \begin{frame}{Literature Review}
     \begin{table}
         \centering
-        \scriptsize
+        \small % अक्षर ठिक्कको साइजमा राख्न
+        \caption{Summary of existing skyline geolocation approaches}
+        \vspace{0.5em}
         \resizebox{\textwidth}{!}{%
-            \begin{tabular}{p{2.5cm}p{2cm}p{3cm}p{2.5cm}p{2.5cm}p{3cm}}
+            \begin{tabular}{lllc}
                 \toprule
-                \textbf{Paper}   & \textbf{Author} & \textbf{Objective}   & \textbf{Methodology}  & \textbf{Findings} & \textbf{Limitations} \\
+                \textbf{Authors} & \textbf{Year} & \textbf{Terrain} & \textbf{Matching Method} \\
                 \midrule
-                Smart Traffic Signal Control (2021) & Sharma et al. & Reduce urban congestion using adaptive signals & Reinforcement learning with Q-learning & 30\% reduction in avg. wait time & Tested only on simulated data \\
-                Crop Disease Detection (2022) & Patel \& Kumar & Identify plant diseases from leaf images & CNN with transfer learning (ResNet-50) & 94.5\% accuracy on test set & Limited to 5 crop species \\
-                IoT-Based Air Quality (2023) & Adhikari et al. & Real-time air quality monitoring system & Sensor network with cloud dashboard & Detected pollutant spikes within 2 min & High sensor calibration cost \\
+                Baboud et al. & 2011 & Alps & Edge cross-correlation \\
+                Baatz et al.  & 2012 & Alps (Switzerland) & Bag-of-curves \\
+                Saurer et al. & 2016 & Alps & Contours + DTW \\
+                Pan et al.    & 2020 & China (hilly) & Euclidean + heatmap \\
+                Tomešek et al.& 2022 & Alps & Synthetic rendering \\
+                \midrule
+                \textbf{This Work} & \textbf{2026} & \textbf{Khumbu, Nepal} & \textbf{FFT + DTW} \\
                 \bottomrule
             \end{tabular}
         }
     \end{table}
+    
+    \vspace{1em}
+    \begin{itemize}
+        \item \small \textbf{Research Gap:} Existing systems focus on European/Chinese terrain; none address the extreme elevation and GPS failure challenges in the \textbf{Himalayas}.
+    \end{itemize}
+    
 \end{frame}

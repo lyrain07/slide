@@ -1,50 +1,71 @@
-\documentclass[14pt]{thapathali}
+% ============================================
+% TITLE SLIDE
+% ============================================
+\begin{frame}[plain]
+    \vspace{0.8cm}
+
+    \begin{center}
+        % Corrected variable: \MyProjectTitle
+        {\Large \bfseries \MakeUppercase{\MyProjectTitle} \par}
+    \end{center}
+
+    \vspace{1em}
+
+    \begin{columns}[t, onlytextwidth]
+        \begin{column}{0.55\textwidth}
+            \hspace{1em}{\normalsize \bfseries Team Members:}\par
+            \vspace{0.3em}
+            \hspace{1em}{\small \studentone{} (\rollone)}\\[2pt]
+            \hspace{1em}{\small \studenttwo{} (\rolltwo)}\\[2pt]
+            \hspace{1em}{\small \studentthree{} (\rollthree)}
+            % ४ जना भए मात्र यो अन-कमेन्ट गर्ने:
+            % \\[2pt] \hspace{1em}{\small \studentfour{} (\rollfour)}
+        \end{column}
+
+        \begin{column}{0.4\textwidth}
+            \raggedleft
+            {\normalsize \bfseries Supervised By:}\par
+            \vspace{0.3em}
+            % Corrected variables: \MySupervisor and \supervisortitle
+            {\small \MySupervisor}\par
+            {\footnotesize \supervisortitle}\par
+        \end{column}
+    \end{columns}
+
+    \vfill
+
+    \begin{center}
+        {\normalsize \MyDeptName}\par
+        {\normalsize \MyInstName}\par
+        \vspace{0.3em}
+        {\normalsize \MyPresDate}
+    \end{center}
+
+    \vspace{0.5cm}
+\end{frame}
 
 % ============================================
-% CUSTOMIZABLE VARIABLES
+% PRESENTATION OUTLINE
 % ============================================
-\newcommand{\MyProjectTitle}{Geo-locating Users in Mountains by Detecting Skylines from Captured Photos}
-\newcommand{\MySubtitle}{Final Defense Presentation}
-
-\newcommand{\studentone}{Bibha Ray}
-\newcommand{\rollone}{THA080BCT009}
-\newcommand{\studenttwo}{Prasiddha Raj Poudel}
-\newcommand{\rolltwo}{THA080BCT027}
-\newcommand{\studentthree}{Reema Kasula}
-\newcommand{\rollthree}{THA080BCT032}
-
-\newcommand{\mysupervisor}{Er. Shanta Maharjan}
-\newcommand{\supervisortitle}{Lecturer} % Or appropriate title
-\newcommand{\deptname}{Department of Electronics and Computer Engineering}
-\newcommand{\instname}{Institute of Engineering, Thapathali Campus}
-\newcommand{\presdate}{June 2026}
-
-% Internal Beamer mappings
-\title{\MyProjectTitle}
-\subtitle{\MySubtitle}
-\author{\studentone, \studenttwo, \studentthree}
-\date{\presdate}
-
-% ============================================
-% DOCUMENT BEGINS
-% ============================================
-\begin{document}
-
-% This calls your title.tex file
-\input{src/slides/01-title.tex}
-
-% Other slides
-\input{src/slides/02-motivation.tex}
-\input{src/slides/03-background.tex}
-\input{src/slides/05-objectives.tex}
-\input{src/slides/09-literature-review.tex}
-\input{src/slides/06-scope.tex}
-\input{src/slides/08-applications.tex}
-\input{src/slides/10-methodology.tex}
-\input{src/slides/11-results.tex}
-\input{src/slides/12-discussion.tex}
-\input{src/slides/13-future-enhancements.tex}
-\input{src/slides/14-conclusion.tex}
-\input{src/slides/16-references.tex}
-
-\end{document}
+\begin{frame}{Presentation Outline}
+    \begin{columns}[t, onlytextwidth]
+        \begin{column}{0.48\textwidth}
+            \begin{itemize}
+                \item Motivation
+                \item Introduction
+                \item Objectives
+                \item Literature Review
+                \item Scope Of Project
+            \end{itemize}
+        \end{column}
+        \begin{column}{0.48\textwidth}
+            \begin{itemize}
+                \item Methodology
+                \item Expected Results
+                \item Feasibility Analysis
+                \item Future Enhancements
+                \item Conclusion
+            \end{itemize}
+        \end{column}
+    \end{columns}
+\end{frame}
